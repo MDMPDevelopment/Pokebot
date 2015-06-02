@@ -160,6 +160,7 @@ names = [
 
 base = 'http://www.pokeapi.co'
 
+user_agent = "any:autopokedex:v1.0.2"
 
 def get_pokemon(poke_id, base):					# Retreives Pokedex
 	entry = '/api/v1/pokemon/' + str(poke_id)	# information for the
@@ -209,7 +210,7 @@ def parse_posts(posts, base):				# Checks for Pokedex
 		
 		time.sleep(3)
 
-def main(base, cons_args):					# Console arguments
+def main(base, user_agent, cons_args):					# Console arguments
 	r = praw.Reddit(user_agent=user_agent)	# passed include:
 	r.login(cons_args[0], cons_args[1])		# username, password,
 											# all watched subs.
@@ -221,4 +222,4 @@ def main(base, cons_args):					# Console arguments
 		time.sleep(180)
 
 if __name__ == '__main__':
-	main(base, sys.argv[1:])
+	main(base, user_agent, sys.argv[1:])
