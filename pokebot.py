@@ -197,7 +197,7 @@ def mentor(comment, matches, base):
 	except:
 		print("Comment not handled")
 
-def parse_posts(posts, base):				# Checks for Pokedex
+def parse_posts(posts, username, base):				# Checks for Pokedex
 	for post in posts:						# request, then 
 		for comment in post.comments:		# serves requests via mentor function.
 			matches = re.findall(r'^Pokedex ([A-Za-z]+|\d{1,3})$', comment.body)
@@ -205,7 +205,7 @@ def parse_posts(posts, base):				# Checks for Pokedex
 			if len(matches) > 0:
 				responders = [rep.author.name for rep in comment.replies]
 				
-				if 'pokebot5000' not in responders:
+				if username not in responders:
 					mentor(comment, matches, base)
 		
 		time.sleep(3)
@@ -217,7 +217,7 @@ def main(base, user_agent, cons_args):					# Console arguments
 	while True:
 		for sub in cons_args[2:]:
 			posts = get_posts(r, sub)
-			parse_posts(posts, base)
+			parse_posts(posts, cons_args[0], base)
 		
 		time.sleep(180)
 
